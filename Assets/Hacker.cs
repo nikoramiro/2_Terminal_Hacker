@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Hacker : MonoBehaviour
 {
-    
+    //GameState
+    int level;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,17 +29,17 @@ public class Hacker : MonoBehaviour
 
     }
 
+
     void OnUserInput(string input)
     {
-        if (input == "1")
+        if (input == "menu")
         {
-            Terminal.ClearScreen();
-            Terminal.WriteLine("Laptop model: OldCrap 1000.");
-            Terminal.WriteLine("Connecting...");
+            ShowMainMenu("Hello.");
         }
-        else if (input == "menu")
+        else if (input == "1" || input == "2" || input == "3")
         {
-            ShowMainMenu("Hello Nic.");
+            level = int.Parse(input);
+            StartGame();
         }
         else if (input == "007")
         {
@@ -45,6 +48,19 @@ public class Hacker : MonoBehaviour
         else
         {
             Terminal.WriteLine("ERROR. Please use a valid input.");
+        }
+    }
+
+    void StartGame()
+    {
+        print(level);
+        Terminal.ClearScreen();
+        Terminal.WriteLine("Welcome to level " + level);
+
+        if (level == 1)
+        {            
+            Terminal.WriteLine("Laptop model: OldCrap 1000.");
+            Terminal.WriteLine("Connecting...");
         }
     }
 
