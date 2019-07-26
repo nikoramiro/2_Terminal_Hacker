@@ -13,12 +13,42 @@ public class Hacker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ShowMainMenu("Hello Nic.");
+        MainMenuText("Hello Nic.");
     }
 
-    void ShowMainMenu(string greeting)
+    void OnUserInput(string input)
+    {
+        if (input == "menu")
+        {
+            MainMenuText("Hello.");
+        }
+        else if (currentScreen == Screen.MainMenu)
+        {
+            RunMainMenu(input);
+        }
+    }
+
+    void RunMainMenu(string input)
+    {
+        if (input == "1" || input == "2" || input == "3")
+        {
+            level = int.Parse(input);
+            StartGame();
+        }
+        else if (input == "007")
+        {
+            MainMenuText("Hello Mr Bond.");
+        }
+        else
+        {
+            Terminal.WriteLine("ERROR. Please use a valid input.");
+        }
+    }
+
+    void MainMenuText(string greeting)
     {
         currentScreen = Screen.MainMenu;
+
         Terminal.ClearScreen();
         Terminal.WriteLine(greeting);
         Terminal.WriteLine("Initializing... terminalHacker.py");
@@ -29,29 +59,6 @@ public class Hacker : MonoBehaviour
         Terminal.WriteLine("Press 1 to hack your dad's laptop");
         Terminal.WriteLine("Press 2 to break into your bank");
         Terminal.WriteLine("Press 3 to steal nuclear launch codes");
-    }
-
-
-    void OnUserInput(string input)
-    {
-        if (input == "menu")
-        {
-            
-            ShowMainMenu("Hello.");
-        }
-        else if (input == "1" || input == "2" || input == "3")
-        {
-            level = int.Parse(input);
-            StartGame();
-        }
-        else if (input == "007")
-        {
-            ShowMainMenu("Hello Mr Bond.");
-        }
-        else
-        {
-            Terminal.WriteLine("ERROR. Please use a valid input.");
-        }
     }
 
     void StartGame()
