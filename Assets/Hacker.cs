@@ -7,6 +7,8 @@ public class Hacker : MonoBehaviour
 {
     //GameState
     int level;
+    enum Screen { MainMenu, Password, Win };
+    Screen currentScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,7 @@ public class Hacker : MonoBehaviour
 
     void ShowMainMenu(string greeting)
     {
+        currentScreen = Screen.MainMenu;
         Terminal.ClearScreen();
         Terminal.WriteLine(greeting);
         Terminal.WriteLine("Initializing... terminalHacker.py");
@@ -26,7 +29,6 @@ public class Hacker : MonoBehaviour
         Terminal.WriteLine("Press 1 to hack your dad's laptop");
         Terminal.WriteLine("Press 2 to break into your bank");
         Terminal.WriteLine("Press 3 to steal nuclear launch codes");
-
     }
 
 
@@ -34,6 +36,7 @@ public class Hacker : MonoBehaviour
     {
         if (input == "menu")
         {
+            
             ShowMainMenu("Hello.");
         }
         else if (input == "1" || input == "2" || input == "3")
@@ -53,6 +56,7 @@ public class Hacker : MonoBehaviour
 
     void StartGame()
     {
+        currentScreen = Screen.Password;
         print(level);
         Terminal.ClearScreen();
         Terminal.WriteLine("Welcome to level " + level);
