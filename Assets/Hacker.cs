@@ -13,7 +13,7 @@ public class Hacker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MainMenuText("Hello Nic.");
+        MainMenuText("Hello.");
     }
 
     void OnUserInput(string input)
@@ -25,6 +25,10 @@ public class Hacker : MonoBehaviour
         else if (currentScreen == Screen.MainMenu)
         {
             RunMainMenu(input);
+        }
+        else if (currentScreen == Screen.Password)
+        {
+            RunPassword(input);
         }
     }
 
@@ -64,7 +68,6 @@ public class Hacker : MonoBehaviour
     void StartGame()
     {
         currentScreen = Screen.Password;
-        print(level);
         Terminal.ClearScreen();
         Terminal.WriteLine("Welcome to level " + level);
 
@@ -72,9 +75,52 @@ public class Hacker : MonoBehaviour
         {            
             Terminal.WriteLine("Laptop model: OldCrap 1000.");
             Terminal.WriteLine("Connecting...");
+            Terminal.WriteLine("Please input password:");
         }
     }
 
+    void RunPassword(string input)
+    {
+        if(level == 1)
+        {
+            if (input == "baseball")
+            {
+                WinnerScreen();
+            }
+            else
+            {
+                Terminal.WriteLine("Please try again.");
+            }
+        }
+        if(level == 2)
+        {
+            if (input == "account")
+            {
+                WinnerScreen();
+            }
+            else
+            {
+                Terminal.WriteLine("Please try again.");
+            }
+        }
+        if (level == 3)
+        {
+            if (input == "plutonium")
+            {
+                WinnerScreen();
+            }
+            else
+            {
+                Terminal.WriteLine("Please try again.");
+            }
+        }
+    }
+
+    void WinnerScreen()
+    {
+        Terminal.WriteLine("Congratulations! You win.");
+        Terminal.WriteLine("Type menu to go back to the main menu");
+    }
     // Update is called once per frame
     void Update()
     {
