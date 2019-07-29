@@ -40,12 +40,13 @@ public class Hacker : MonoBehaviour
 
     void RunMainMenu(string input)
     {
-        if (input == "1" || input == "2" || input == "3")
+        bool isValidLevelNumber = (input == "1" || input == "2" || input == "3");
+        if (isValidLevelNumber)
         {
             level = int.Parse(input);
             StartGame();
         }
-        else if (input == "007")
+        else if (input == "007") //Easter egg.
         {
             MainMenuText("Hello Mr Bond.");
         }
@@ -74,29 +75,33 @@ public class Hacker : MonoBehaviour
     void StartGame()
     {
         currentScreen = Screen.Password;
+        string please = "Please input password:";
         Terminal.ClearScreen();
-        Terminal.WriteLine("Welcome to level " + level);
 
         //Setting password and text for the right level.
-        if (level == 1)
+        switch (level)
         {
-            password = psw1[0]; //TODO: Make random later.
-            Terminal.WriteLine("Laptop model: OldCrap 1000.");
-            Terminal.WriteLine("Connecting...");
-            Terminal.WriteLine("Please input password:");
-        }
-        else if (level == 2)
-        {
-            password = psw2[0]; //TODO: Make random later.
-            Terminal.WriteLine("Connecting to Bank of Bankland");
-            Terminal.WriteLine("Firewall password required:");
-        }
-        else if (level == 3)
-        {
-            password = psw3[0]; //TODO: Make random later.
-            Terminal.WriteLine("Connecting to Chernobyl");
-            Terminal.WriteLine("I hope you know what you're doing here.");
-            Terminal.WriteLine("Input password:");
+            case 1:
+                password = psw1[0]; //TODO: Make random later.
+                Terminal.WriteLine("Laptop model: OldCrap 1000.");
+                Terminal.WriteLine("Connecting...");
+                Terminal.WriteLine(please);
+                break;
+            case 2:
+                password = psw2[0]; //TODO: Make random later.
+                Terminal.WriteLine("Connecting to Bank of Bankland");
+                Terminal.WriteLine("Firewall bypass required");
+                Terminal.WriteLine(please);
+                break;
+            case 3:
+                password = psw3[0]; //TODO: Make random later.
+                Terminal.WriteLine("Connecting to Chernobyl");
+                Terminal.WriteLine("I hope you know what you're doing here.");
+                Terminal.WriteLine(please);
+                break;
+            default:
+                Debug.LogError("Invalid level number.");
+                break;
         }
     }
 
