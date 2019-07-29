@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Hacker : MonoBehaviour
 {
@@ -82,19 +79,19 @@ public class Hacker : MonoBehaviour
         switch (level)
         {
             case 1:
-                password = psw1[0]; //TODO: Make random later.
+                password = psw1[Random.Range(0, psw1.Length)];
                 Terminal.WriteLine("Laptop model: OldCrap 1000.");
                 Terminal.WriteLine("Connecting...");
                 Terminal.WriteLine(please);
                 break;
             case 2:
-                password = psw2[0]; //TODO: Make random later.
+                password = psw2[Random.Range(0, psw2.Length)];
                 Terminal.WriteLine("Connecting to Bank of Bankland");
                 Terminal.WriteLine("Firewall bypass required");
                 Terminal.WriteLine(please);
                 break;
             case 3:
-                password = psw3[0]; //TODO: Make random later.
+                password = psw3[Random.Range(0, psw3.Length)];
                 Terminal.WriteLine("Connecting to Chernobyl");
                 Terminal.WriteLine("I hope you know what you're doing here.");
                 Terminal.WriteLine(please);
