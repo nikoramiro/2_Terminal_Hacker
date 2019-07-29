@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Net.Http;
 
 public class Hacker : MonoBehaviour
 {
@@ -8,8 +9,8 @@ public class Hacker : MonoBehaviour
     string[] psw3 = { "meltdown", "plutonium", "thermonuclear", "contamination", "enrichment" };
 
     //GameState
-    int level;
-    string password;
+    public int level;
+    public string password;
     enum Screen { MainMenu, Password, Win };
     Screen currentScreen;
 
@@ -106,14 +107,65 @@ public class Hacker : MonoBehaviour
     {   
         if (input == password)
         {
-            Terminal.WriteLine("Congratulations! You win.");
-            Terminal.WriteLine("Type menu to go back to the main menu");
+            DisplayWinScreen();
         }
         else
         {
             Terminal.WriteLine("Please try again.");
         }               
     }
+
+    void DisplayWinScreen()
+    {
+        currentScreen = Screen.Win;
+        Terminal.ClearScreen();
+        ShowLevelReward();
+    }
+
+    void ShowLevelReward()
+    {
+        Terminal.WriteLine("Congratulations! You win.");
+        switch (level)
+        {
+            case 1:
+                Terminal.WriteLine("Here, have a dad joke.");
+                Terminal.WriteLine("Why was the big cat disqualified from the race? Because it was a cheetah.");
+                
+                break;
+            case 2:
+                Terminal.WriteLine(@"
+___________________________________
+|#######====================#######|
+|#(1)*UNITED STATES OF AMERICA*(1)#|
+|#**          /===\   ********  **#|
+|*# {G}      | ( ) |             #*|
+|#*  ******  | /v\ |    O N E    *#|
+|#(1)         \===/            (1)#|
+|##=========ONE DOLLAR===========##|
+------------------------------------
+"
+);
+                break;
+            case 3:
+                Terminal.WriteLine(@"
+          _ ._  _ , _ ._
+        (_ ' ( `  )_  .__)
+      ( (  (    )   `)  ) _)
+     (__ (_   (_ . _) _) ,__)
+         `~~`\ ' . /`~~`
+              ;   ;
+              /   \
+_____________/_ __ \_____________
+"
+                );
+                break;
+            default:
+                Debug.LogError("Invalid level number.");
+                break;
+        }
+        Terminal.WriteLine("Type menu to go back to the main menu");
+    }
+
 
     // Update is called once per frame
     void Update()
