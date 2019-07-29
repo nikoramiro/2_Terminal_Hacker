@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class Hacker : MonoBehaviour
 {
+    //Game configuration data
+    string[] psw1 = { "baseball", "jazz", "football", "oreo", "cars" };
+    string[] psw2 = { "interest", "account", "withdraw", "overdraft", "statement" };
+    string[] psw3 = { "meltdown", "plutonium", "thermonuclear", "contamination", "enrichment" };
+
     //GameState
     int level;
     string password;
@@ -75,22 +80,22 @@ public class Hacker : MonoBehaviour
         //Setting password and text for the right level.
         if (level == 1)
         {
-            password = "baseball"; 
+            password = psw1[0]; //TODO: Make random later.
             Terminal.WriteLine("Laptop model: OldCrap 1000.");
             Terminal.WriteLine("Connecting...");
             Terminal.WriteLine("Please input password:");
         }
         else if (level == 2)
         {
-            password = "account";
+            password = psw2[0]; //TODO: Make random later.
             Terminal.WriteLine("Connecting to Bank of Bankland");
             Terminal.WriteLine("Firewall password required:");
         }
         else if (level == 3)
         {
-            password = "plutonium";
+            password = psw3[0]; //TODO: Make random later.
             Terminal.WriteLine("Connecting to Chernobyl");
-            Terminal.WriteLine("I hope you know what you're doing here...");
+            Terminal.WriteLine("I hope you know what you're doing here.");
             Terminal.WriteLine("Input password:");
         }
     }
