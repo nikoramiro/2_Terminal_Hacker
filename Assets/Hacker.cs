@@ -7,6 +7,7 @@ public class Hacker : MonoBehaviour
 {
     //GameState
     int level;
+    string password;
     enum Screen { MainMenu, Password, Win };
     Screen currentScreen;
 
@@ -28,7 +29,7 @@ public class Hacker : MonoBehaviour
         }
         else if (currentScreen == Screen.Password)
         {
-            RunPassword(input);
+            CheckPassword(input);
         }
     }
 
@@ -71,56 +72,42 @@ public class Hacker : MonoBehaviour
         Terminal.ClearScreen();
         Terminal.WriteLine("Welcome to level " + level);
 
+        //Setting password and text for the right level.
         if (level == 1)
-        {            
+        {
+            password = "baseball"; 
             Terminal.WriteLine("Laptop model: OldCrap 1000.");
             Terminal.WriteLine("Connecting...");
             Terminal.WriteLine("Please input password:");
         }
-    }
-
-    void RunPassword(string input)
-    {
-        if(level == 1)
+        else if (level == 2)
         {
-            if (input == "baseball")
-            {
-                WinnerScreen();
-            }
-            else
-            {
-                Terminal.WriteLine("Please try again.");
-            }
+            password = "account";
+            Terminal.WriteLine("Connecting to Bank of Bankland");
+            Terminal.WriteLine("Firewall password required:");
         }
-        if(level == 2)
+        else if (level == 3)
         {
-            if (input == "account")
-            {
-                WinnerScreen();
-            }
-            else
-            {
-                Terminal.WriteLine("Please try again.");
-            }
-        }
-        if (level == 3)
-        {
-            if (input == "plutonium")
-            {
-                WinnerScreen();
-            }
-            else
-            {
-                Terminal.WriteLine("Please try again.");
-            }
+            password = "plutonium";
+            Terminal.WriteLine("Connecting to Chernobyl");
+            Terminal.WriteLine("I hope you know what you're doing here...");
+            Terminal.WriteLine("Input password:");
         }
     }
 
-    void WinnerScreen()
-    {
-        Terminal.WriteLine("Congratulations! You win.");
-        Terminal.WriteLine("Type menu to go back to the main menu");
+    void CheckPassword(string input)
+    {   
+        if (input == password)
+        {
+            Terminal.WriteLine("Congratulations! You win.");
+            Terminal.WriteLine("Type menu to go back to the main menu");
+        }
+        else
+        {
+            Terminal.WriteLine("Please try again.");
+        }               
     }
+
     // Update is called once per frame
     void Update()
     {
