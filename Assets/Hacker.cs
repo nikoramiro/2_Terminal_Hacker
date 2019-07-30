@@ -4,6 +4,7 @@ using System.Net.Http;
 public class Hacker : MonoBehaviour
 {
     //Game configuration data
+    const string menuHint = "You may type menu at any time.";
     string[] psw1 = { "baseball", "jazz", "football", "oreo", "cars" };
     string[] psw2 = { "interest", "account", "withdraw", "overdraft", "statement" };
     string[] psw3 = { "meltdown", "plutonium", "thermonuclear", "contamination", "enrichment" };
@@ -51,6 +52,7 @@ public class Hacker : MonoBehaviour
         else
         {
             Terminal.WriteLine("ERROR. Please use a valid input.");
+            Terminal.WriteLine(menuHint);
         }
     }
 
@@ -73,29 +75,47 @@ public class Hacker : MonoBehaviour
     void StartGame()
     {
         currentScreen = Screen.Password;
-        string please = "Please input password:";
         Terminal.ClearScreen();
+        SetLevelPassword();
+        LevelGreeting();
+        Terminal.WriteLine("Input password. Hint: " + password.Anagram());
+    }
 
+    void SetLevelPassword()
+    {
         //Setting password and text for the right level.
         switch (level)
         {
             case 1:
                 password = psw1[Random.Range(0, psw1.Length)];
-                Terminal.WriteLine("Laptop model: OldCrap 1000.");
-                Terminal.WriteLine("Connecting...");
-                Terminal.WriteLine(please);
                 break;
             case 2:
                 password = psw2[Random.Range(0, psw2.Length)];
-                Terminal.WriteLine("Connecting to Bank of Bankland");
-                Terminal.WriteLine("Firewall bypass required");
-                Terminal.WriteLine(please);
                 break;
             case 3:
                 password = psw3[Random.Range(0, psw3.Length)];
-                Terminal.WriteLine("Connecting to Chernobyl");
-                Terminal.WriteLine("I hope you know what you're doing here.");
-                Terminal.WriteLine(please);
+                break;
+            default:
+                Debug.LogError("Invalid level number.");
+                break;
+        }
+    }
+
+    void LevelGreeting()
+    {
+        switch (level)
+        {
+            case 1:
+                Terminal.WriteLine("Laptop model: OldCrap 1000.");
+                Terminal.WriteLine("Connected");
+                break;
+            case 2:
+                Terminal.WriteLine("Connected to Bank of Bankland");
+                Terminal.WriteLine("Firewall bypass required");
+                break;
+            case 3:
+                Terminal.WriteLine("Connected to nuclear plant.");
+                Terminal.WriteLine("I hope you know what you're doing.");
                 break;
             default:
                 Debug.LogError("Invalid level number.");
@@ -111,8 +131,17 @@ public class Hacker : MonoBehaviour
         }
         else
         {
-            Terminal.WriteLine("Please try again.");
-        }               
+            TryAgain();
+        }
+    }
+
+    void TryAgain()
+    {
+        Terminal.ClearScreen();
+        Terminal.WriteLine("Please try again.");
+        SetLevelPassword();
+        Terminal.WriteLine("Input password. Hint: " + password.Anagram());
+        Terminal.WriteLine(menuHint);
     }
 
     void DisplayWinScreen()
@@ -120,6 +149,7 @@ public class Hacker : MonoBehaviour
         currentScreen = Screen.Win;
         Terminal.ClearScreen();
         ShowLevelReward();
+        Terminal.WriteLine(menuHint);
     }
 
     void ShowLevelReward()
@@ -163,7 +193,6 @@ _____________/_ __ \_____________
                 Debug.LogError("Invalid level number.");
                 break;
         }
-        Terminal.WriteLine("Type menu to go back to the main menu");
     }
 
 
